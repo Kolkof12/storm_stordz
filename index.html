@@ -10,36 +10,46 @@
 
 <header>
 <h1>⚡ storm_stordz</h1>
-<nav>
-  <button onclick="showPage('store')">Store</button>
-  <button onclick="showPage('signup')">Sign Up</button>
-  <button onclick="showPage('add')">Add Product</button>
-  <button onclick="showPage('profile')">Edit Profile</button>
-  <input type="text" id="search" placeholder="Search Products" onkeyup="searchProducts()">
-  <button id="mode">🌙</button>
-</nav>
+<button id="mode">🌙</button>
 </header>
 
 <main>
 
-<!-- SIGNUP PAGE -->
-<section id="signup" class="page">
+<!-- LOGIN / SIGNUP PAGE -->
+<section id="login" class="page">
+<h2>Login / Sign Up</h2>
+<form id="login-form">
+<input type="text" placeholder="Username or Email" required>
+<input type="password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+<button onclick="showSignup()">Sign Up</button>
+</section>
+
+<section id="signup" class="page" style="display:none;">
 <h2>Create Account</h2>
 <form id="signup-form">
 <input type="text" placeholder="@username" required>
 <input type="email" placeholder="email@example.com" required>
 <input type="password" placeholder="••••••" required>
-<input type="text" placeholder="Profile Image URL (optional)">
+<label>Profile Image:</label>
+<input type="file" id="profile-img" accept="image/*">
 <button type="submit">Sign Up</button>
 </form>
 </section>
 
-<!-- STORE PAGE -->
-<section id="store" class="page" style="display:none;">
-<h2>Store</h2>
-<div class="store-container" id="products-container">
-  <!-- المنتجات ستظهر هنا -->
+<!-- PROFILE PAGE -->
+<section id="profile" class="page" style="display:none;">
+<div class="profile-header">
+<img id="profile-pic" src="assets/images/default_profile.png" alt="Profile">
+<h2 id="profile-username">@storm_user <span class="verified">⭐</span></h2>
+<p id="profile-bio">This is my bio.</p>
+<p id="profile-contact">Telegram / Email / Phone</p>
+<button onclick="showPage('add')">Add Product</button>
+<button onclick="editProfile()">Edit Profile</button>
 </div>
+<h3>My Products</h3>
+<div class="store-container" id="my-products"></div>
 </section>
 
 <!-- ADD PRODUCT PAGE -->
@@ -47,7 +57,8 @@
 <h2>Add Product</h2>
 <form id="add-form">
 <input type="text" placeholder="Product Name" required>
-<input type="text" placeholder="Product Image URL" required>
+<label>Product Image:</label>
+<input type="file" id="product-img" accept="image/*" required>
 <input type="text" placeholder="Price" required>
 <textarea placeholder="Description"></textarea>
 <input type="text" placeholder="Contact Info">
@@ -55,14 +66,14 @@
 </form>
 </section>
 
-<!-- PROFILE PAGE -->
-<section id="profile" class="page" style="display:none;">
-<h2>Edit Profile <span class="verified">⭐</span></h2>
-<input type="text" placeholder="Bio" id="bio">
-<input type="text" placeholder="Contact Info" id="contact-info">
-<button onclick="updateProfile()">Save Changes</button>
-<h3>My Products</h3>
-<div class="store-container" id="my-products"></div>
+<!-- STORE PAGE -->
+<section id="store" class="page" style="display:none;">
+<div class="store-header">
+<input type="text" id="search" placeholder="Search Products" onkeyup="searchProducts()">
+</div>
+<div class="store-container" id="products-container">
+  <!-- المنتجات ستظهر هنا -->
+</div>
 </section>
 
 </main>
@@ -73,4 +84,4 @@
 
 <script src="script.js"></script>
 </body>
-</html>
+  </html>
