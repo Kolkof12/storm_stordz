@@ -3,45 +3,61 @@ function showPage(pageId){
 document.querySelectorAll('.page').forEach(p=>p.style.display='none');
 document.getElementById(pageId).style.display='block';
 }
+function showSignup(){showPage('signup');}
 
 // DARK / LIGHT MODE
 const modeBtn=document.getElementById("mode");
 modeBtn.onclick=()=>document.body.classList.toggle("light");
 
-// Signup Form
+// LOGIN / SIGNUP (Simulated)
+document.getElementById("login-form").addEventListener("submit",function(e){
+e.preventDefault(); showPage('profile');
+});
 document.getElementById("signup-form").addEventListener("submit",function(e){
 e.preventDefault();
-alert("Account created! (Simulated)");
-showPage('store');
+const file=document.getElementById("profile-img").files[0];
+if(file){
+const reader=new FileReader();
+reader.onload=function(){document.getElementById("profile-pic").src=this.result;}
+reader.readAsDataURL(file);
+}
+showPage('profile');
 });
 
-// Products Array
+// Products
 let products=[];
 let myProducts=[];
 
-// Add Product Form
+// Add Product
 document.getElementById("add-form").addEventListener("submit",function(e){
 e.preventDefault();
 const name=this[0].value;
-const img=this[1].value;
+const file=this[1].files[0];
 const price=this[2].value;
 const desc=this[3].value;
 const contact=this[4].value;
 
-// Product Card
-const product={name,img,price,desc,contact};
+let imgSrc="assets/images/default_product.png";
+if(file){
+const reader=new FileReader();
+reader.onload=function(){addProductCard(this.result);}
+reader.readAsDataURL(file);
+}else{addProductCard(imgSrc);}
+
+function addProductCard(src){
+const product={name,img:src,price,desc,contact};
 products.push(product);
 myProducts.push(product);
 renderProducts();
 showPage('profile');
+}
 });
 
 // Render Products
 function renderProducts(){
 const container=document.getElementById("products-container");
 const myContainer=document.getElementById("my-products");
-container.innerHTML='';
-myContainer.innerHTML='';
+container.innerHTML=''; myContainer.innerHTML='';
 products.forEach(p=>{
 const card=document.createElement('div');
 card.className='card';
@@ -49,7 +65,7 @@ card.innerHTML=`<img src="${p.img}" alt="Product">
 <h3>@storm_user <span class="verified">⭐</span></h3>
 <p class="desc">${p.desc}</p>
 <span class="price">${p.price}</span>
-<button class="contact" onclick="alert('Contact the seller: ${p.contact}')">Contact</button>`;
+<button class="contact" onclick="alert('Contact: ${p.contact}')">Contact</button>`;
 container.appendChild(card);
 myContainer.appendChild(card.cloneNode(true));
 });
@@ -68,14 +84,15 @@ card.innerHTML=`<img src="${p.img}" alt="Product">
 <h3>@storm_user <span class="verified">⭐</span></h3>
 <p class="desc">${p.desc}</p>
 <span class="price">${p.price}</span>
-<button class="contact" onclick="alert('Contact the seller: ${p.contact}')">Contact</button>`;
+<button class="contact" onclick="alert('Contact: ${p.contact}')">Contact</button>`;
 container.appendChild(card);
 });
 }
 
-// Update Profile
-function updateProfile(){
-const bio=document.getElementById("bio").value;
-const contact=document.getElementById("contact-info").value;
-alert(`Profile updated!\nBio: ${bio}\nContact: ${contact}`);
+// Edit Profile
+function editProfile(){
+const bio=prompt("Enter new bio:",document.getElementById("profile-bio")?.innerText||"");
+const contact=prompt("Enter contact info:",document.getElementById("profile-contact")?.innerText||"");
+if(bio) document.getElementById("profile-bio").innerText=bio;
+if(contact) document.getElementById("profile-contact").innerText=contact;
   }
