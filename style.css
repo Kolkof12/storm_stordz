@@ -1,56 +1,81 @@
-body{
-margin:0;
-font-family:Arial;
-background:#050a1f;
-color:white;
-transition:0.4s;
+// SPA Navigation
+function showPage(pageId){
+document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+document.getElementById(pageId).style.display='block';
 }
 
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-background:#081230;
-box-shadow:0 0 20px #00aaff55;
+// DARK / LIGHT MODE
+const modeBtn=document.getElementById("mode");
+modeBtn.onclick=()=>document.body.classList.toggle("light");
+
+// Signup Form
+document.getElementById("signup-form").addEventListener("submit",function(e){
+e.preventDefault();
+alert("Account created! (Simulated)");
+showPage('store');
+});
+
+// Products Array
+let products=[];
+let myProducts=[];
+
+// Add Product Form
+document.getElementById("add-form").addEventListener("submit",function(e){
+e.preventDefault();
+const name=this[0].value;
+const img=this[1].value;
+const price=this[2].value;
+const desc=this[3].value;
+const contact=this[4].value;
+
+// Product Card
+const product={name,img,price,desc,contact};
+products.push(product);
+myProducts.push(product);
+renderProducts();
+showPage('profile');
+});
+
+// Render Products
+function renderProducts(){
+const container=document.getElementById("products-container");
+const myContainer=document.getElementById("my-products");
+container.innerHTML='';
+myContainer.innerHTML='';
+products.forEach(p=>{
+const card=document.createElement('div');
+card.className='card';
+card.innerHTML=`<img src="${p.img}" alt="Product">
+<h3>@storm_user <span class="verified">⭐</span></h3>
+<p class="desc">${p.desc}</p>
+<span class="price">${p.price}</span>
+<button class="contact" onclick="alert('Contact the seller: ${p.contact}')">Contact</button>`;
+container.appendChild(card);
+myContainer.appendChild(card.cloneNode(true));
+});
 }
 
-h1{color:#00aaff;text-shadow:0 0 10px #00aaff;}
-
-nav button{
-margin-left:10px;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;background:#00aaff;color:white;
+// Search Products
+function searchProducts(){
+const query=document.getElementById("search").value.toLowerCase();
+const filtered=products.filter(p=>p.name.toLowerCase().includes(query));
+const container=document.getElementById("products-container");
+container.innerHTML='';
+filtered.forEach(p=>{
+const card=document.createElement('div');
+card.className='card';
+card.innerHTML=`<img src="${p.img}" alt="Product">
+<h3>@storm_user <span class="verified">⭐</span></h3>
+<p class="desc">${p.desc}</p>
+<span class="price">${p.price}</span>
+<button class="contact" onclick="alert('Contact the seller: ${p.contact}')">Contact</button>`;
+container.appendChild(card);
+});
 }
 
-/* Pages */
-.page{padding:20px;}
-
-/* STORE CARDS */
-.store-container{
-display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px;
-}
-
-.card{
-background:#0b163d;
-padding:20px;border-radius:15px;width:260px;text-align:center;box-shadow:0 0 25px #00aaff33;margin:10px;transition:0.3s;
-}
-.card:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 0 35px #00aaffaa;}
-.card img{width:100%;border-radius:10px;}
-
-.username{margin:10px 0;}
-.verified{color:#00aaff;text-shadow:0 0 10px #00aaff,0 0 20px #0088ff;}
-
-.rating{color:gold;margin:8px 0;font-size:18px;}
-.price{display:block;font-size:22px;margin:10px 0;color:#00e1ff;}
-button.contact,form button{background:#00aaff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;color:white;margin-top:10px;}
-
-/* FORMS */
-form{display:flex;flex-direction:column;width:300px;margin:auto;}
-form input, form textarea{margin:5px 0;padding:8px;border-radius:6px;border:none;}
-
-/* FOOTER */
-footer{text-align:center;margin-top:50px;padding:20px;opacity:0.7;}
-
-/* LIGHT MODE */
-.light{background:#f2f6ff;color:black;}
-.light header{background:white;}
-.light .card{background:white;}
+// Update Profile
+function updateProfile(){
+const bio=document.getElementById("bio").value;
+const contact=document.getElementById("contact-info").value;
+alert(`Profile updated!\nBio: ${bio}\nContact: ${contact}`);
+  }
