@@ -95,4 +95,4 @@ const bio=prompt("Enter new bio:",document.getElementById("profile-bio")?.innerT
 const contact=prompt("Enter contact info:",document.getElementById("profile-contact")?.innerText||"");
 if(bio) document.getElementById("profile-bio").innerText=bio;
 if(contact) document.getElementById("profile-contact").innerText=contact;
-}
+  }
