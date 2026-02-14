@@ -3,91 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>storm_stor</title>
+<title>storm_stordz</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-<h1>⚡ storm_stor</h1>
+<h1>⚡ storm_stordz</h1>
 <nav>
   <button onclick="showPage('store')">Store</button>
   <button onclick="showPage('signup')">Sign Up</button>
   <button onclick="showPage('add')">Add Product</button>
-  <button onclick="showPage('profile')">Profile</button>
+  <button onclick="showPage('profile')">Edit Profile</button>
+  <input type="text" id="search" placeholder="Search Products" onkeyup="searchProducts()">
   <button id="mode">🌙</button>
 </nav>
 </header>
 
 <main>
 
-<!-- STORE PAGE -->
-<section id="store" class="page">
-<h2>Store</h2>
-<div class="store-container">
-  <!-- مثال منتجات -->
-  <div class="card">
-    <img src="assets/images/product1.jpg" alt="Product">
-    <h3>@storm_user <span class="verified">⭐</span></h3>
-    <p class="desc">Premium Account</p>
-    <div class="rating">★★★★☆</div>
-    <span class="price">20$</span>
-    <button class="contact">Contact</button>
-  </div>
-</div>
-</section>
-
 <!-- SIGNUP PAGE -->
-<section id="signup" class="page" style="display:none;">
+<section id="signup" class="page">
 <h2>Create Account</h2>
 <form id="signup-form">
-<label>Username</label>
 <input type="text" placeholder="@username" required>
-<label>Email</label>
 <input type="email" placeholder="email@example.com" required>
-<label>Password</label>
 <input type="password" placeholder="••••••" required>
-<label>Profile Image URL (optional)</label>
-<input type="text" placeholder="Image URL">
+<input type="text" placeholder="Profile Image URL (optional)">
 <button type="submit">Sign Up</button>
 </form>
+</section>
+
+<!-- STORE PAGE -->
+<section id="store" class="page" style="display:none;">
+<h2>Store</h2>
+<div class="store-container" id="products-container">
+  <!-- المنتجات ستظهر هنا -->
+</div>
 </section>
 
 <!-- ADD PRODUCT PAGE -->
 <section id="add" class="page" style="display:none;">
 <h2>Add Product</h2>
 <form id="add-form">
-<label>Product Name</label>
 <input type="text" placeholder="Product Name" required>
-<label>Product Image URL</label>
-<input type="text" placeholder="Image URL" required>
-<label>Price</label>
-<input type="text" placeholder="20$" required>
-<label>Description</label>
-<textarea placeholder="Describe your product"></textarea>
-<label>Contact Info</label>
-<input type="text" placeholder="Telegram / Email / Phone">
+<input type="text" placeholder="Product Image URL" required>
+<input type="text" placeholder="Price" required>
+<textarea placeholder="Description"></textarea>
+<input type="text" placeholder="Contact Info">
 <button type="submit">Add Product</button>
 </form>
 </section>
 
 <!-- PROFILE PAGE -->
 <section id="profile" class="page" style="display:none;">
-<h2>@storm_user <span class="verified">⭐</span></h2>
-<p class="bio">This is my bio. I sell premium accounts!</p>
-<p class="contact">Contact: Telegram / Email / Phone</p>
+<h2>Edit Profile <span class="verified">⭐</span></h2>
+<input type="text" placeholder="Bio" id="bio">
+<input type="text" placeholder="Contact Info" id="contact-info">
+<button onclick="updateProfile()">Save Changes</button>
 <h3>My Products</h3>
-<div class="store-container" id="my-products">
-  <!-- منتجات المستخدم ستظهر هنا -->
-</div>
+<div class="store-container" id="my-products"></div>
 </section>
 
 </main>
 
 <footer>
-<p>© storm_stor — All Rights Reserved</p>
+<p>© storm_stordz — All Rights Reserved</p>
 </footer>
 
 <script src="script.js"></script>
 </body>
-  </html>
+</html>
